@@ -1,0 +1,2 @@
+2026-06-02 15:40:18 | INFO | trading_bot | API request | method=POST url=https://testnet.binancefuture.com/fapi/v1/order payload={'symbol': 'BTCUSDT', 'side': 'SELL', 'type': 'LIMIT', 'quantity': '0.001', 'newOrderRespType': 'RESULT', 'timeInForce': 'GTC', 'price': '120000', 'timestamp': 1780395018655, 'recvWindow': 5000, 'signature': '***'}
+2026-06-02 15:40:20 | INFO | trading_bot | API response | status=200 body={"orderId":13798131038,"symbol":"BTCUSDT","status":"NEW","executedQty":"0.0000","avgPrice":"0.00","type":"LIMIT","side":"SELL","price":"120000.00"}

@@ -88,7 +88,7 @@ def place_order_with_summary(
             avg_price = details.get("avgPrice", avg_price)
             response.setdefault("executedQty", details.get("executedQty"))
             response.setdefault("status", details.get("status"))
-        except Exception:  # pragma: no cover - non-blocking enrichment
+        except Exception:
             client.logger.warning("Could not enrich order response with extra details")
 
     response_summary = _build_response_summary(response)

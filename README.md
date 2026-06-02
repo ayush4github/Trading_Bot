@@ -1,100 +1,74 @@
-# Simplified Trading Bot - Binance Futures Testnet
+# Binance Futures Testnet Trading Bot
 
-This project is a Python CLI app that places **MARKET**, **LIMIT**, and **STOP (Stop-Limit style)** orders on Binance Futures Testnet (USDT-M) using signed REST API requests.
+Python CLI for placing orders on Binance Futures Testnet (USDT-M) via signed REST API calls.
 
-## Features
-- Places `MARKET`, `LIMIT`, and `STOP` orders
-- Supports both `BUY` and `SELL`
-- Validates CLI input (`symbol`, `side`, `type`, `quantity`, `price`, `stop-price`)
-- Structured modules (`client`, `orders`, `validators`, `logging_config`, `cli`)
-- Logs requests, responses, and errors to file
-- Handles validation errors, API failures, and network failures
+Supports MARKET and LIMIT orders (required), plus STOP as a bonus order type.
 
 ## Project Structure
+
 ```text
-trading_bot/
-  bot/
-    __init__.py
-    client.py
-    orders.py
-    validators.py
-    logging_config.py
-  logs/
-    market_order_example.log
-    limit_order_example.log
-  cli.py
-  README.md
-  requirements.txt
+bot/
+  client.py          # Binance API client
+  orders.py          # Order placement logic
+  validators.py      # Input validation
+  logging_config.py
+cli.py               # CLI entry point
+logs/
+  market_order.log
+  limit_order.log
+requirements.txt
 ```
 
 ## Setup
-1. Create and activate a virtual environment:
-   - Windows (PowerShell):
-     ```powershell
-     python -m venv .venv
-     .\.venv\Scripts\Activate.ps1
-     ```
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Set Binance testnet credentials:
-   - Windows (PowerShell):
-     ```powershell
-     $env:BINANCE_API_KEY="your_testnet_api_key"
-     $env:BINANCE_API_SECRET="your_testnet_api_secret"
-     ```
 
-## Binance Base URL
-This app defaults to:
-`https://testnet.binancefuture.com`
+1. Create a virtual environment and install dependencies:
 
-You can override it via `--base-url` if needed.
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+2. Set testnet credentials:
+
+```powershell
+$env:BINANCE_API_KEY="your_testnet_api_key"
+$env:BINANCE_API_SECRET="your_testnet_api_secret"
+```
 
 ## Usage
 
-### 1) MARKET order example
+Base URL (default): `https://testnet.binancefuture.com`
+
+MARKET order:
+
 ```bash
 python cli.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.001
 ```
 
-### 2) LIMIT order example
+LIMIT order:
+
 ```bash
-python cli.py --symbol BTCUSDT --side SELL --type LIMIT --quantity 0.001 --price 80000
+python cli.py --symbol BTCUSDT --side SELL --type LIMIT --quantity 0.001 --price 120000
 ```
 
-### 3) STOP order example (bonus)
-Binance routes conditional STOP orders through the Algo Order API (`/fapi/v1/algoOrder`).
+STOP order (bonus):
 
-Use a trigger below current price for a SELL stop-loss style order:
 ```bash
 python cli.py --symbol BTCUSDT --side SELL --type STOP --quantity 0.001 --price 68000 --stop-price 68500
 ```
 
-### Optional arguments
-- `--base-url` (default is Binance futures testnet URL)
-- `--log-file` (default `logs/trading_bot.log`)
-- `--stop-price` (required for `STOP`)
+Optional flags: `--base-url`, `--log-file`, `--stop-price`
 
 ## Output
-The CLI prints:
-- Order request summary
-- Order response details:
-  - `orderId`
-  - `status`
-  - `executedQty`
-  - `avgPrice` (when available)
-- Final success/failure message
 
-## Logs
-- Runtime logs are written to `logs/trading_bot.log`
-- Included sample logs for submission:
-  - `logs/market_order_example.log`
-  - `logs/limit_order_example.log`
+The CLI prints an order request summary, response details (`orderId`, `status`, `executedQty`, `avgPrice`), and a success/failure message.
+
+Runtime logs are written to `logs/trading_bot.log`.
 
 ## Assumptions
-- User has an active Binance Futures Testnet account and valid API credentials.
-- Quantity/price precision and min/max filters are validated by Binance server-side (this app validates numeric positivity and required fields).
-- `avgPrice` may be unavailable immediately for some order states and can remain `None` or `0`.
-- For `STOP`, this app uses Binance Algo Order API with `algoType=CONDITIONAL`, `type=STOP`, `price`, and `triggerPrice`.
 
+- Valid Binance Futures Testnet account and API credentials are required.
+- Quantity and price precision are validated by Binance; this app checks required fields and positive numeric values.
+- `avgPrice` may be unavailable for unfilled orders.
+- STOP orders use Binance Algo Order API (`/fapi/v1/algoOrder`) with `algoType=CONDITIONAL`.

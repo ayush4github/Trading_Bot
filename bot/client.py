@@ -51,7 +51,10 @@ class BinanceFuturesClient:
             payload["signature"] = self._sign(query_string)
 
         url = f"{self.base_url}{path}"
-        self.logger.info("API request | method=%s url=%s payload=%s", method, url, payload)
+        log_payload = dict(payload)
+        if "signature" in log_payload:
+            log_payload["signature"] = "***"
+        self.logger.info("API request | method=%s url=%s payload=%s", method, url, log_payload)
 
         try:
             if method.upper() == "POST":

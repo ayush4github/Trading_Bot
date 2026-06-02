@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--side", required=True, help="Order side: BUY or SELL")
     parser.add_argument("--type", required=True, help="Order type: MARKET, LIMIT, or STOP")
     parser.add_argument("--quantity", required=True, help="Order quantity, e.g. 0.001")
-    parser.add_argument("--price", help="Price required for LIMIT orders")
+    parser.add_argument("--price", help="Price required for LIMIT and STOP orders")
     parser.add_argument(
         "--stop-price",
         help="Stop trigger price required for STOP orders",
@@ -86,8 +86,9 @@ def main() -> int:
         "type": order_type,
         "quantity": quantity,
         "price": price if order_type in {"LIMIT", "STOP"} else "N/A",
-        "stop_price": stop_price if order_type == "STOP" else "N/A",
     }
+    if order_type == "STOP":
+        request_summary["stop_price"] = stop_price
     print("Order Request Summary")
     print("---------------------")
     for key, value in request_summary.items():
@@ -107,7 +108,7 @@ def main() -> int:
         print(f"\nFailure: could not place order - {exc}")
         logger.exception("Order placement failed")
         return 1
-    except Exception as exc:  # pragma: no cover - defensive fallback
+    except Exception as exc:
         print(f"\nFailure: unexpected error - {exc}")
         logger.exception("Unexpected order placement error")
         return 1

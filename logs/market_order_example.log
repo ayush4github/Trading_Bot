@@ -1,3 +1,0 @@
-2026-06-02 15:01:12 | INFO | trading_bot | API request | method=POST url=https://testnet.binancefuture.com/fapi/v1/order payload={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': '0.001', 'newOrderRespType': 'RESULT', 'timestamp': 1770072672000, 'recvWindow': 5000, 'signature': '***redacted***'}
-2026-06-02 15:01:12 | INFO | trading_bot | API response | status=200 body={"orderId":1234567890,"symbol":"BTCUSDT","status":"FILLED","executedQty":"0.001","avgPrice":"68542.10"}
-
