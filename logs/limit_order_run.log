@@ -1,0 +1,197 @@
+2026-06-02 15:24:12 | INFO | trading_bot | API request | method=POST url=https://testnet.binancefuture.com/fapi/v1/order payload={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': '0.001', 'newOrderRespType': 'RESULT', 'timestamp': 1780394052699, 'recvWindow': 5000, 'signature': '0dd92feff21cdceabfd293fc6d3d329f9fa75cb2aee6ef10f4703ea4459e225a'}
+2026-06-02 15:24:23 | ERROR | trading_bot | Network error while calling Binance API
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 983, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='testnet.binancefuture.com', port=443): Failed to resolve 'testnet.binancefuture.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\util\retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='testnet.binancefuture.com', port=443): Max retries exceeded with url: /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&newOrderRespType=RESULT&timestamp=1780394052699&recvWindow=5000&signature=0dd92feff21cdceabfd293fc6d3d329f9fa75cb2aee6ef10f4703ea4459e225a (Caused by NameResolutionError("HTTPSConnection(host='testnet.binancefuture.com', port=443): Failed to resolve 'testnet.binancefuture.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\bot\client.py", line 58, in _request
+    response = self.session.post(url, params=payload, timeout=self.timeout)
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\sessions.py", line 712, in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='testnet.binancefuture.com', port=443): Max retries exceeded with url: /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&newOrderRespType=RESULT&timestamp=1780394052699&recvWindow=5000&signature=0dd92feff21cdceabfd293fc6d3d329f9fa75cb2aee6ef10f4703ea4459e225a (Caused by NameResolutionError("HTTPSConnection(host='testnet.binancefuture.com', port=443): Failed to resolve 'testnet.binancefuture.com' ([Errno 11001] getaddrinfo failed)"))
+2026-06-02 15:24:23 | ERROR | trading_bot | Order placement failed
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 983, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='testnet.binancefuture.com', port=443): Failed to resolve 'testnet.binancefuture.com' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\urllib3\util\retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='testnet.binancefuture.com', port=443): Max retries exceeded with url: /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&newOrderRespType=RESULT&timestamp=1780394052699&recvWindow=5000&signature=0dd92feff21cdceabfd293fc6d3d329f9fa75cb2aee6ef10f4703ea4459e225a (Caused by NameResolutionError("HTTPSConnection(host='testnet.binancefuture.com', port=443): Failed to resolve 'testnet.binancefuture.com' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\bot\client.py", line 58, in _request
+    response = self.session.post(url, params=payload, timeout=self.timeout)
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\sessions.py", line 712, in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\ayush\Desktop\Trading_Bot\.venv\Lib\site-packages\requests\adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='testnet.binancefuture.com', port=443): Max retries exceeded with url: /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&newOrderRespType=RESULT&timestamp=1780394052699&recvWindow=5000&signature=0dd92feff21cdceabfd293fc6d3d329f9fa75cb2aee6ef10f4703ea4459e225a (Caused by NameResolutionError("HTTPSConnection(host='testnet.binancefuture.com', port=443): Failed to resolve 'testnet.binancefuture.com' ([Errno 11001] getaddrinfo failed)"))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\cli.py", line 97, in main
+    _, response_summary = place_order_with_summary(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~^
+        client=client,
+        ^^^^^^^^^^^^^^
+    ...<5 lines>...
+        stop_price=stop_price,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ayush\Desktop\Trading_Bot\bot\orders.py", line 55, in place_order_with_summary
+    response = client.place_order(request_payload)
+  File "C:\Users\ayush\Desktop\Trading_Bot\bot\client.py", line 86, in place_order
+    return self._request("POST", "/fapi/v1/order", params=params, signed=True)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\bot\client.py", line 65, in _request
+    raise ConnectionError(f"Network failure: {exc}") from exc
+ConnectionError: Network failure: HTTPSConnectionPool(host='testnet.binancefuture.com', port=443): Max retries exceeded with url: /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&newOrderRespType=RESULT&timestamp=1780394052699&recvWindow=5000&signature=0dd92feff21cdceabfd293fc6d3d329f9fa75cb2aee6ef10f4703ea4459e225a (Caused by NameResolutionError("HTTPSConnection(host='testnet.binancefuture.com', port=443): Failed to resolve 'testnet.binancefuture.com' ([Errno 11001] getaddrinfo failed)"))
+2026-06-02 15:36:12 | INFO | trading_bot | API request | method=POST url=https://testnet.binancefuture.com/fapi/v1/order payload={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': '0.001', 'newOrderRespType': 'RESULT', 'timestamp': 1780394772265, 'recvWindow': 5000, 'signature': 'f32c31d2cf2dcf494053d0a28af282a937e4b19321d1e102ca7c16f14a542a24'}
+2026-06-02 15:36:13 | INFO | trading_bot | API response | status=200 body={"orderId":13797700385,"symbol":"BTCUSDT","status":"FILLED","clientOrderId":"BRoBKzbKTG6qnUKmwStFXK","price":"0.00","avgPrice":"69488.200000","origQty":"0.0010","executedQty":"0.0010","cumQty":"0.0010","cumQuote":"69.488200","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1780394774844}
+2026-06-02 15:37:28 | INFO | trading_bot | API request | method=POST url=https://testnet.binancefuture.com/fapi/v1/order payload={'symbol': 'BTCUSDT', 'side': 'SELL', 'type': 'LIMIT', 'quantity': '0.001', 'newOrderRespType': 'RESULT', 'timeInForce': 'GTC', 'price': '120000', 'timestamp': 1780394848545, 'recvWindow': 5000, 'signature': 'fdebc9acf9ce1d09f29af48f2d0b88e4839852e0ee2b6a6eede65a02086bbbd6'}
+2026-06-02 15:37:29 | INFO | trading_bot | API response | status=200 body={"orderId":13797860448,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"EDRprrq5x0pMwiHtSkrfMT","price":"120000.00","avgPrice":"0.00","origQty":"0.0010","executedQty":"0.0000","cumQty":"0.0000","cumQuote":"0.000000","timeInForce":"GTC","type":"LIMIT","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"LIMIT","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1780394851267}
+2026-06-02 15:37:48 | INFO | trading_bot | API request | method=POST url=https://testnet.binancefuture.com/fapi/v1/order payload={'symbol': 'BTCUSDT', 'side': 'SELL', 'type': 'STOP', 'quantity': '0.001', 'newOrderRespType': 'RESULT', 'timeInForce': 'GTC', 'price': '79000', 'stopPrice': '79500', 'timestamp': 1780394868791, 'recvWindow': 5000, 'signature': '36ba89603c79a365ff843994996061ea55c9b2dc97329d6f92d7f1107bc08756'}
+2026-06-02 15:37:49 | INFO | trading_bot | API response | status=400 body={"code":-4120,"msg":"Order type not supported for this endpoint. Please use the Algo Order API endpoints instead."}
+2026-06-02 15:37:49 | ERROR | trading_bot | Order placement failed
+Traceback (most recent call last):
+  File "C:\Users\ayush\Desktop\Trading_Bot\cli.py", line 97, in main
+    _, response_summary = place_order_with_summary(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~^
+        client=client,
+        ^^^^^^^^^^^^^^
+    ...<5 lines>...
+        stop_price=stop_price,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ayush\Desktop\Trading_Bot\bot\orders.py", line 55, in place_order_with_summary
+    response = client.place_order(request_payload)
+  File "C:\Users\ayush\Desktop\Trading_Bot\bot\client.py", line 86, in place_order
+    return self._request("POST", "/fapi/v1/order", params=params, signed=True)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayush\Desktop\Trading_Bot\bot\client.py", line 80, in _request
+    raise BinanceAPIError(f"Binance API error {code}: {message}")
+bot.client.BinanceAPIError: Binance API error -4120: Order type not supported for this endpoint. Please use the Algo Order API endpoints instead.
+2026-06-02 15:40:18 | INFO | trading_bot | API request | method=POST url=https://testnet.binancefuture.com/fapi/v1/order payload={'symbol': 'BTCUSDT', 'side': 'SELL', 'type': 'LIMIT', 'quantity': '0.001', 'newOrderRespType': 'RESULT', 'timeInForce': 'GTC', 'price': '120000', 'timestamp': 1780395018655, 'recvWindow': 5000, 'signature': 'ba64456f157264f2f89a39c51f805148d91336ec42995d79777503f3a5073c01'}
+2026-06-02 15:40:20 | INFO | trading_bot | API response | status=200 body={"orderId":13798131038,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"JIp4VMmgGziQrvYWUlzIt4","price":"120000.00","avgPrice":"0.00","origQty":"0.0010","executedQty":"0.0000","cumQty":"0.0000","cumQuote":"0.000000","timeInForce":"GTC","type":"LIMIT","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"LIMIT","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1780395021724}
